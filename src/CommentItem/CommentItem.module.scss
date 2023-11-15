@@ -1,0 +1,47 @@
+.wrapper {
+    padding: 8px 0 35px 0;
+    border-bottom: 1px solid #ddd;
+
+    + .wrapper {
+        margin-top: 20px;
+    }
+}
+
+.avatar {
+    img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        object-fit: cover;
+        object-position: center;
+    }
+}
+
+.sub-info {
+    > :first-child {
+        font-weight: 600;
+    }
+}
+
+.more-menu {
+    background: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.rating {
+    padding: 10px 0;
+
+    > :first-child {
+        color: var(--primary);
+        margin-right: 16px;
+    }
+}
+
+.slider {
+    img {
+        width: 100%;
+    }
+}

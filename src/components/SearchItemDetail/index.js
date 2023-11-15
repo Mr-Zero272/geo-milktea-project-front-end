@@ -3,6 +3,7 @@ import styles from './SearchItemDetail.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClock, faMap, faPhone, faStar, faStarHalf } from '@fortawesome/free-solid-svg-icons';
 import { Col, Row, Tab, Tabs } from 'react-bootstrap';
+import CommentItem from '~/CommentItem';
 
 const cx = classNames.bind(styles);
 
@@ -81,7 +82,11 @@ function SearchItemDetail() {
                         </div>
                     </Tab>
                     <Tab eventKey="comment" title="Comment">
-                        <p>Comment</p>
+                        <div className={cx('comment-tab')}>
+                            <CommentItem />
+                            <CommentItem />
+                            <CommentItem />
+                        </div>
                     </Tab>
                 </Tabs>
             </div>
