@@ -3,9 +3,10 @@ import './Login.scss';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebookF, faTwitter, faGoogle } from '@fortawesome/free-brands-svg-icons';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import validation from './LoginValidation';
-
+import { loginApi } from '../../components/Api/User';
 function LoginForm() {
     const [values, setValues] = useState({
         username: '',
@@ -18,13 +19,20 @@ function LoginForm() {
         setValues({ ...values, [e.target.name]: e.target.value });
     }
 
-    function handleSubmit(e) {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         setErrors(validation(values));
         if (Object.keys(validation(values)).length === 0) {
-            alert('Form Submitted successfully');
+            // alert('Form Submitted successfully');
+            try {
+                console.log(values);
+                await loginApi.login(values);
+                toast.success('Login user successfully');
+            } catch (error) {
+                toast.error('login failed');
+            }
         }
-    }
+    };
 
     return (
         <div className="login_container">
@@ -63,7 +71,7 @@ function LoginForm() {
                         <label style={{ display: 'flex', alignItems: 'center' }}>
                             <input type="checkbox" defaultChecked name="remember" /> Remember me
                             <label style={{ marginLeft: 'auto' }}>
-                                <a href="#">Forgot Password</a>
+                                <Link>Forgot Password</Link>
                             </label>
                         </label>
                     </div>
@@ -76,25 +84,26 @@ function LoginForm() {
                             <strong>Or Login Using</strong>
                             <div className="social-icons">
                                 <div className="icon-circle facebook-circle">
-                                    <a href="#">
+                                    <Link>
                                         <FontAwesomeIcon icon={faFacebookF} className="facebook-icon" />
-                                    </a>
+                                    </Link>
                                 </div>
                                 <div className="icon-circle google-circle">
-                                    <a href="#">
+                                    <Link>
                                         <FontAwesomeIcon icon={faGoogle} className="google-icon" />
-                                    </a>
+                                    </Link>
                                 </div>
                                 <div className="icon-circle twitter-circle">
-                                    <a href="#">
+                                    <Link>
                                         <FontAwesomeIcon icon={faTwitter} className="twitter-icon" />
-                                    </a>
+                                    </Link>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </form>
             </div>
+            <ToastContainer />
         </div>
     );
 }

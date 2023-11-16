@@ -3,8 +3,7 @@
     justify-content: center;
     align-items: center;
     padding-top: 20px;
-    background: linear-gradient(to bottom left, #add8e6, #6495ed, transparent),
-        linear-gradient(to top right, #ff69b4, #ff1493, transparent);
+    background-image: url(https://scontent.fvca1-1.fna.fbcdn.net/v/t39.30808-6/401670264_1524350075049534_5929159009207413916_n.jpg?stp=dst-jpg_p960x960&_nc_cat=105&ccb=1-7&_nc_sid=5f2048&_nc_ohc=MtYH0gOS0kkAX_icwfL&_nc_ht=scontent.fvca1-1.fna&oh=00_AfAkW3U_kCO3H8YGP7kkUuxWkG9BqHCX3-jgLToya41QNQ&oe=655B8D11);
 }
 
 .login-form {
@@ -12,7 +11,7 @@
     width: 35%;
     height: 800px;
     animation: slideInFromTop 1s ease forwards;
-    background: linear-gradient(45deg, #ff1493, #9400d3, #6495ed, #32cd32, #ff5733);
+    background: #fff;
 
     form {
         padding: 1.5rem;
@@ -23,7 +22,7 @@
 
     h1 {
         text-align: center;
-        background: linear-gradient(45deg, #ff1493, #9400d3, #6495ed, #32cd32, #ff5733);
+        background: #fff;
     }
 
     .img-container {
@@ -54,25 +53,26 @@
         border: 1px solid #ccc;
         box-sizing: border-box;
         border-radius: 10px;
-        background: linear-gradient(to bottom left, #ff69b4, #6495ed, transparent);
+        background: transparent;
         transition: background 0.3s;
     }
 
     button {
-        background-color: #32cd32;
+        background-color: #4bb6b7;
         width: 60%;
         color: white;
         padding: 1rem 2rem;
         font-size: 1.5rem;
         border: none;
         cursor: pointer;
-        border-radius: 10px;
-        border: 1px solid #4caf50;
+        border-radius: 12px;
+        border: 1px solid #5b54e6;
         display: block;
         margin: 2rem auto;
         text-align: center;
         &:hover {
             opacity: 0.8;
+            border: 2px solid #18172b;
         }
     }
 

@@ -3,13 +3,15 @@ import validation from './RegisterValidation';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
-
+import { registerApi } from '../../components/Api/User';
 import './Register.scss';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function SignupForm() {
     const [values, setValues] = useState({
         username: '',
-        email: '',
+        // email: '',
         password: '',
         confirm_password: '',
     });
@@ -23,17 +25,23 @@ function SignupForm() {
         setValues({ ...values, [e.target.name]: e.target.value });
     };
 
-    function handleSubmit(e) {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         setErrors(validation(values));
-        // if (!values.username) {
-        //     setErrors({ ...errors, username: 'Username should not be empty' });
-        // }
-
         if (Object.keys(validation(values)).length === 0) {
-            alert('Form Submitted successfully');
+            try {
+                const userData = {
+                    username: values.username,
+                    password: values.password,
+                };
+                await registerApi.register(userData);
+                console.log(userData);
+                toast.success('Register user successfully');
+            } catch (error) {
+                toast.error('Register user failed');
+            }
         }
-    }
+    };
 
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
@@ -66,7 +74,7 @@ function SignupForm() {
                             </p>
                         )}
 
-                        <label htmlFor="email">
+                        {/* <label htmlFor="email">
                             <strong>Email:</strong>
                         </label>
                         <input
@@ -80,7 +88,7 @@ function SignupForm() {
                             <p style={{ color: 'red' }}>
                                 <strong>{errors.email}</strong>
                             </p>
-                        )}
+                        )} */}
 
                         <label htmlFor="password">
                             <strong>Password:</strong>
@@ -135,6 +143,7 @@ function SignupForm() {
                     </form>
                 </div>
             </div>
+            <ToastContainer />
         </div>
     );
 }

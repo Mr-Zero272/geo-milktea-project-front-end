@@ -9,7 +9,7 @@ function validation(values) {
 
     if (!values.password) {
         errors.password = 'Please enter a valid password. This field is required';
-    } else if (values.password.length < 9) {
+    } else if (values.password.length < 8) {
         errors.password = 'Password must be more than 9 char';
     }
 
