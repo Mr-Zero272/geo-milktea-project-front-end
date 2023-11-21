@@ -1,6 +1,6 @@
 function validation(values) {
     let error = {};
-    const email_pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    // const email_pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const password_pattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9]{8,}$/;
 
     if (!values.username) {
@@ -9,11 +9,11 @@ function validation(values) {
         error.username = 'This field is required must more than 5 characters';
     }
 
-    if (values.email === '') {
-        error.email = ' Please enter a valid email address. This field is required';
-    } else if (!email_pattern.test(values.email)) {
-        error.email = 'Please enter a valid email format';
-    }
+    // if (values.email === '') {
+    //     error.email = ' Please enter a valid email address. This field is required';
+    // } else if (!email_pattern.test(values.email)) {
+    //     error.email = 'Please enter a valid email format';
+    // }
 
     if (values.password === '') {
         error.password = 'Please enter a valid password. This field is required';
