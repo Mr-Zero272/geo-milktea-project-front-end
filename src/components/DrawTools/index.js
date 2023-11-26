@@ -46,7 +46,7 @@ const DrawTools = ({ onCreated, onEdited }) => {
             handleEditLayer(layer._leaflet_id, stringify(layer.toGeoJSON()));
             //console.log(additionalEleMap);
         });
-        console.log(`_onEdited: edited ${numEdited} layers`, e);
+        //console.log(`_onEdited: edited ${numEdited} layers`, e);
         // this._onChange();
     };
 
@@ -66,7 +66,7 @@ const DrawTools = ({ onCreated, onEdited }) => {
                 closeTime: '',
                 phoneNumber: '',
                 positionWkt: stringify(geoJson),
-                belongTo: 0,
+                roadId: 0,
             };
             dispatch(drawGeoActions.createPoint(tempData));
             e.layer.bindTooltip('Double click to see and edit information!');
@@ -105,7 +105,27 @@ const DrawTools = ({ onCreated, onEdited }) => {
         let numDeleted = 0;
         e.layers.eachLayer((layer) => {
             numDeleted += 1;
-            console.log(e);
+            console.log(layer);
+            if (layer.feature && layer.feature.properties) {
+                if (layer.feature.geometry.type === 'Point') {
+                    console.log(layer._leaflet_id);
+                    dispatch(
+                        drawGeoActions.setIdToDeleteArray({
+                            type: 'Point',
+                            id: layer._leaflet_id,
+                            realId: layer.feature.properties.id,
+                        }),
+                    );
+                } else {
+                    dispatch(
+                        drawGeoActions.setIdToDeleteArray({
+                            type: 'LineString',
+                            id: layer._leaflet_id,
+                            realId: layer.feature.properties.id,
+                        }),
+                    );
+                }
+            }
             handleDeleteLayer(layer._leaflet_id);
         });
         console.log(`onDeleted: removed ${numDeleted} layers`, e);

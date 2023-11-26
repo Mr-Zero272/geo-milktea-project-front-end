@@ -1,9 +1,12 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
 const addToDistinctArray = (array, value) => {
     let temp = [];
     if (array.some((item) => item.id === value.id)) {
         temp = array.filter((it) => it.id !== value.id);
+        if (value.realId && value.realId !== 0) {
+            value.needEdit = true;
+        }
         temp = [...temp, value];
     } else {
         temp = [...array, value];
@@ -24,7 +27,7 @@ const temp = {
     closeTime: '',
     phoneNumber: '',
     positionWkt: '',
-    belongTo: 0,
+    roadId: 0,
 };
 
 const temp2 = {
@@ -43,8 +46,51 @@ const drawGeoSlice = createSlice({
         activePointInfo: temp,
         activeLineStringInfo: temp2,
         isShowFormAdd: false,
+        listPointIdsDeleteEleMapInDb: [],
+        listLinStringIdsDeleteEleMapInDb: [],
     },
     reducers: {
+        setIdToDeleteArray(state, action) {
+            let tempArray = [];
+            let tempArray2 = [];
+            if (action.payload.type === 'Point') {
+                if (state.listPoints.some((item) => item.id === action.payload.id)) {
+                    console.log('tessssss');
+                    tempArray2 = [...state.listPoints.filter((item) => item.id !== action.payload.id)];
+                    console.log(tempArray2);
+                } else {
+                    tempArray2 = state.listPoints;
+                }
+
+                if (!state.listPointIdsDeleteEleMapInDb.some((item) => item === action.payload.realId)) {
+                    tempArray = [...state.listPointIdsDeleteEleMapInDb, action.payload.realId];
+                } else {
+                    tempArray = state.listPointIdsDeleteEleMapInDb;
+                }
+                return {
+                    ...state,
+                    listPointIdsDeleteEleMapInDb: tempArray,
+                    listPoints: tempArray2,
+                };
+            } else {
+                if (state.listLineStrings.some((item) => item.id === action.payload.id)) {
+                    tempArray2 = state.listLineStrings.filter((item) => item.id !== action.payload.id);
+                } else {
+                    tempArray2 = state.listLineStrings;
+                }
+
+                if (!state.listLinStringIdsDeleteEleMapInDb.some((item) => item === action.payload.realId)) {
+                    tempArray = [...state.listLinStringIdsDeleteEleMapInDb, action.payload.realId];
+                } else {
+                    tempArray = state.listLinStringIdsDeleteEleMapInDb;
+                }
+                return {
+                    ...state,
+                    listLinStringIdsDeleteEleMapInDb: tempArray,
+                    listLineStrings: tempArray2,
+                };
+            }
+        },
         setDrawPointState(state, action) {
             let tempState;
 
@@ -72,6 +118,9 @@ const drawGeoSlice = createSlice({
             };
         },
         updatePoint(state, action) {
+            if (action.payload.realId && action.payload.realId !== 0) {
+                action.payload.needEdit = true;
+            }
             return {
                 ...state,
                 listPoints: addToDistinctArray(state.listPoints, action.payload),
@@ -157,6 +206,9 @@ const drawGeoSlice = createSlice({
             };
         },
         updateLineString(state, action) {
+            if (action.payload.realId && action.payload.realId !== 0) {
+                action.payload.needEdit = true;
+            }
             return {
                 ...state,
                 listLineStrings: addToDistinctArray(state.listLineStrings, action.payload),
@@ -167,6 +219,18 @@ const drawGeoSlice = createSlice({
             return {
                 ...state,
                 activeLineStringInfo: findById(state.listLineStrings, action.payload),
+            };
+        },
+        addFromDataToListPoint(state, action) {
+            return {
+                ...state,
+                listPoints: [...state.listPoints, ...action.payload],
+            };
+        },
+        addFromDataToListLineString(state, action) {
+            return {
+                ...state,
+                listLineStrings: [...state.listLineStrings, ...action.payload],
             };
         },
     },

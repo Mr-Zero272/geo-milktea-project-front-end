@@ -258,13 +258,14 @@ function FormAddPoint() {
                 <Form.Select
                     aria-label="Default select example"
                     onChange={handleChange}
-                    name="belongTo"
-                    value={pointValue.belongTo}
+                    name="roadId"
+                    value={pointValue.roadId}
                 >
                     <option value="0">Không có trong danh sách</option>
-                    <option value="1">Đường 3 tháng 2</option>
-                    <option value="2">02</option>
-                    <option value="3">03</option>
+                    <option value="1">Đường Trần Hưng Đạo</option>
+                    <option value="2">0Đường Mạc Thiên Tích2</option>
+                    <option value="3">Đường 3 Tháng 2</option>
+                    <option value="4">Đường Mậu Thân</option>
                 </Form.Select>
             </Form.Group>
             <Button type="button" variant="success" onClick={handleSubmit}>

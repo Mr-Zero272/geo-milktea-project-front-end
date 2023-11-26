@@ -15,6 +15,11 @@ root.render(
             </GlobalStyles>
         </Provider>
     </React.StrictMode>,
+    // <Provider store={store}>
+    //     <GlobalStyles>
+    //         <App />
+    //     </GlobalStyles>
+    // </Provider>,
 );
 
 // If you want to start measuring performance in your app, pass a function

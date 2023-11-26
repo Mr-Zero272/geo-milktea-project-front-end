@@ -14,7 +14,6 @@ const cx = classNames.bind(styles);
 function Home() {
     const dispatch = useDispatch();
     const drawGeoState = useSelector((state) => state.drawGeoState);
-    console.log(drawGeoState);
 
     const handleClose = () => {
         if (drawGeoState.isDrawPoint) {
@@ -32,7 +31,7 @@ function Home() {
                 backdrop={false}
                 style={{ marginTop: '66px' }}
             >
-                <Offcanvas.Header closeButton>
+                <Offcanvas.Header>
                     {drawGeoState.isDrawPoint && <Offcanvas.Title>Add point</Offcanvas.Title>}
                     {drawGeoState.isDrawLineString && <Offcanvas.Title>Add line string</Offcanvas.Title>}
                 </Offcanvas.Header>
