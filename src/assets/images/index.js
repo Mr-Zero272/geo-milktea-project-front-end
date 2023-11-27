@@ -11,8 +11,8 @@ const image = {
     aboutPageLogo: require('~/assets/images/about-page.svg').default,
     fakeAvatar: require('~/assets/images/fake-avatar.jpg'), // nho xoa
     noImage: require('~/assets/images/no_image.png'),
-    barcode: require('~/assets/images/barcode-svgrepo-com.svg').default, //nho xoa
     point: require('~/assets/images/location.png'), // nho xoa
+    activePoint: require('~/assets/images/location-pin.png'), //nho xoa
 };
 
 export default image;
